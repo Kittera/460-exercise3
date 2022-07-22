@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exercise 3 - Kittera</title>
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+    <!-- Library of xkcd-specific functions. -->
+    <script type="text/javascript" src="/js/xkcdlib.js"></script>
+    <!-- jokeAPI-specific library -->
+    <script type="text/javascript" src="/js/jokeapilib.js"></script>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/e3.css" />
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-primary mb-3">
+      <div class="container">
+        <a href="#" class="navbar-brand">Exercise 3: Consuming Web Services</a>
+      </div>
+    </nav>
+    <!-- HTML code for displaying the search container -->
+    <div class="container mainContainer">
+      <ul class="nav nav-tabs border-info" role="tablist" id="myTab">
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link active"
+            id="xkcdComics-tab"
+            data-bs-toggle="tab"
+            href="#xkcdComics"
+            role="tab"
+          >
+            XKCD Pages
+          </a>
+        </li>
+        <li class="nav-item" role="presentation">
+          <a
+            class="nav-link"
+            id="jokeAPI-tab"
+            data-bs-toggle="tab"
+            href="#jokeAPI"
+            role="tab"
+          >
+            Jokes
+          </a>
+        </li>
+      </ul>
+
+      <div class="tab-content">
+        <div class="tab-pane fade show active" id="xkcdComics" role="tabpanel">
+          <p>
+            There are currently
+            <b><span class="text-info" id="xkcdCurrentCountDisp">????</span></b>
+            issues of XKCD. The latest issue is shown. <br />The selector below
+            allows seeking through issues. <br />
+          </p>
+          <div class="container" id="xkcdIssueSearchBox">
+            <input class="form-control" type="number" id="xkcdIssueNumSelect" />
+            <button class="btn btn-info" id="xckdGoBtn">Go To Issue</button>
+            <button class="btn btn-info" id="xckdRandBtn">Random Issue</button>
+          </div>
+          <div class="container fade hide" id="xkcdComicDisplay">
+            <div class="card border-info mb-3">
+              <h4 class="card-header" id="xkcdComicPageTitle">####</h4>
+              <div class="card-body">
+                <h6 class="card-subtitle text-info" id="xkcdComicPageDate">
+                  Date
+                </h6>
+              </div>
+              <img class="img-fluid" src="" id="xkcdComicPageImage" />
+              <div class="card-body">
+                <h6 class="card-title" id="xkcdComicPageAltText">Alt</h6>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" id="xkcdComicPageTranscript">
+                  Transcript?
+                </li>
+              </ul>
+              <div class="card-body">
+                <a href="#" class="card-link" id="xkcdComicPageDirectLink">
+                  Image link
+                </a>
+                <a href="#" class="card-link" id="xkcdComicPageNormalLink">
+                  Page Link
+                </a>
+                <br />
+                <a href="https://xkcd.com/license.html" class="card-link">
+                  <a
+                    class="cc-license-icons"
+                    href="https://xkcd.com/license.html"
+                  >
+                    <span id="cc-logo"
+                      ><img
+                        class="cc-lic-icon"
+                        alt="cc logo"
+                        src="/images/cc_icon_white_x2.png"
+                    /></span>
+                    <span id="cc-attribution"
+                      ><img
+                        src="/images/attribution_icon_white_x2.png"
+                        class="cc-lic-icon"
+                    /></span>
+                    <span id="cc-icon-nc"
+                      ><img src="/images/nc_white_x2.png" class="cc-lic-icon"
+                    /></span>
+                  </a>
+                </a>
+              </div>
+            </div>
+            <!-- End comic page display -->
+          </div>
+          <!-- End xkcdComics tab -->
+        </div>
+        <!-- Begin Joke API tab -->
+        <div class="tab-pane fade" id="jokeAPI" role="tabpanel">
+          <p>
+            JokeAPI allows you to request two formats; single-part or two-part.
+            <br />
+            When requesting two-part jokes, you will need to click and
+            additional button to reveal the punch line.
+          </p>
+          <button class="btn btn-info" id="jokePanelSinglePartBtn">
+            Single Part Joke
+          </button>
+          <div class="container fade" id="jokePanelSingle">
+            <div class="card border-info mb-3">
+              <div class="card-body">
+                <h5 class="card-title" id="jokePanelSingleJoke">Joke</h5>
+              </div>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" id="jokePanelSingleCategory">
+                  Category
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button class="btn btn-info" id="jokePanelTwoPartBtn">
+            Two Part Joke
+          </button>
+          <div class="container fade" id="jokePanelDouble">
+            <div class="card border-info mb-3">
+              <div class="card-body">
+                <h5 class="card-title" id="jokePanelDoubleSetup">Setup</h5>
+              </div>
+              <button
+                class="btn btn-info"
+                id="jokePanelDoubleRevealBtn"
+                data-bs-toggle="tooltip"
+                data-bs-placement="top"
+                title="Reveal Punchline"
+              >
+                Reveal Punchline
+              </button>
+              <ul class="list-group list-group-flush">
+                <li class="list-group-item" id="jokePanelDoubleCategory">
+                  Category
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="text/javascript" src="/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+.tab-pane {
+  padding: 5px;
+  text-align: center;
+}
+
+.mainContainer {
+  width: 50%;
+  min-width: 400px;
+}
+
+#xkcdIssueNumSelect {
+  width: 20%;
+  min-width: 100px;
+  text-align: center;
+  margin: 5px auto 5px auto;
+}
+
+/* body {
+    background-attachment: fixed;
+} */
+
+.btn {
+  margin: 5px;
+  margin-inline-end: collapse;
+}
+
+#xkcdComicDisplay,
+#jokePanelSingle,
+#jokePanelDouble {
+  margin: 10px auto 10px auto;
+  padding: 5px;
+  width: 70%;
+  min-width: 200px;
+}
+
+#jokePanelDoubleRevealBtn {
+  margin: 0px auto 10px auto;
+}
+
+.fade {
+  transition: opacity 0.4s linear;
+}
+.cc-lic-icon {
+  height: 40px;
+  margin: 10px auto 0px auto;
+}
